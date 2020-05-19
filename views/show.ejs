@@ -1,0 +1,43 @@
+<%- include ("./partials/header") %>
+
+
+
+<div class="ui container">
+    <% if(update){ %>
+        <div class="ui negative message" id="empty-db-error">
+        <i class="close icon"></i>
+        <div class="header">
+        Book with title '<%= book.title %>' has been updated!    
+        </div>
+        </div>
+    <% } %>
+
+    <div class="ui segment open-book">
+        <div class="ui two column very relaxed grid">
+            <div class="column">
+                <a href="<%= book.image %>" target="_blank"><img src="<%= book.image %>" class="ui medium left floated image"></a>
+                <p> <strong>Title:</strong> <em><%= book.title; %> </em></p>
+                <p> <strong>Author:</strong> <em><%= book.author; %> </em></p>
+                <p> <strong>Year published:</strong> <em><%= book.year; %> </em></p>
+                <p> <strong>Rating:</strong> <em><%= book.rating; %> </em></p>
+            </div>
+            <div class="column">
+                <p><%- book.summary; %></p>
+                
+                <a href="#"><div class="ui basic button" id="delete-button"><i class="ui icon trash"></i>Delete</div></a>
+                <a href="/books/<%= book._id %>/edit"><div class="ui basic button"><i class="ui icon pencil"></i>Edit</div></a>
+                <div class="ui hidden message" id="delete-message">
+                    <p>Are you sure? 
+                        <form action="/books/<%= book._id %>?_method=DELETE" method="POST">
+                            <div class="ui basic green button" id="delete-cancel">Cancel</div> </p>
+                            <button class="ui basic red button">Delete</button> 
+                        </form>
+                </div>
+            </div>
+        </div>
+        <div class="ui vertical divider">
+        </div>
+    </div>
+    <a href="/books"><div class="ui big basic button">back</div></a>
+    <%- include ("./partials/footer") %>
+</div>

@@ -1,0 +1,71 @@
+
+i.bars:hover {
+  cursor: pointer;
+  color: rgb(85, 79, 79);
+}
+
+#main-header-container {
+  margin-top: 20px;
+  border: 2px solid black !important;
+}
+
+#index-search-result {
+  min-height: 220px;
+  margin-top: 20px;
+}
+
+#delete-message {
+  width: 150px;
+}
+
+#empty-db-error {
+  margin-top: 50px;
+}
+
+#date {
+  float: right;
+  font-size: 0.8em;
+}
+
+.basic-link {
+  font-family: inherit;
+  color: inherit;
+}
+.basic-link:hover {
+  color: inherit;
+}
+
+.book {
+  opacity: 0;
+}
+
+.fade-in {
+  animation-name: fade-in;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.open-book {
+  animation-name: open-book;
+  animation-duration: 0.5s;
+}
+
+@keyframes open-book {
+  from {
+    opacity: 0;
+    transform: rotateY(90deg);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

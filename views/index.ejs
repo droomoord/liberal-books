@@ -1,0 +1,94 @@
+<%- include ("./partials/header") %>
+
+<div class="ui container">
+  <form action="/search" method="GET" class="ui form">
+    <div class="ui category search">
+      <div class="ui icon input">
+        <input
+          name="search"
+          class="prompt"
+          type="text"
+          placeholder="Search books..."
+        />
+        <i class="search icon"></i>
+      </div>
+      <div class="results"></div>
+    </div>
+  </form>
+</div>
+<div class="ui container">
+  <% allBooks = allBooks.reverse() %>
+  <!-- make the last added book return on top of list -->
+  <% if(deleted){ %>
+  <div class="ui negative message" id="empty-db-error">
+    <i class="close icon"></i>
+    <div class="header">
+      Book has been deleted!
+    </div>
+  </div>
+  <% } %> <% if (allBooks.length == 0){ %>
+  <div class="ui negative message" id="empty-db-error">
+    <i class="close icon"></i>
+    <div class="header">
+      There are no books to display...
+    </div>
+    <a href="/books/new">click here to add one!</a>
+  </div>
+  <% }; %> <% allBooks.forEach(function(book){ %>
+  <div class="ui segment book" id="index-search-result">
+    <div class="ui header">
+      <a href="/books/<%= book._id %>" class="basic-link"><%= book.title; %></a>
+      <span id="date">
+        <% if(book.updateDate){ %> last updated: <%=
+        `${book.updateDate.toLocaleTimeString()},
+        ${book.updateDate.toDateString()}` %>
+        <br />
+        <% } %> created: <%= `${book.postDate.toLocaleTimeString()},
+        ${book.postDate.toDateString()}` %>
+      </span>
+      <span class="ui sub header">
+        by
+        <a href="/author/<%= book.author %>"
+          ><strong><%= book.author %></strong></a
+        >
+      </span>
+    </div>
+
+    <div class="ui clearing divider"></div>
+    <a href="/books/<%= book._id %>"
+      ><img src="<%= book.image %>" class="ui tiny left floated image"
+    /></a>
+    <% if(book.summary){ %>
+    <span
+      ><%= book.summary.substring(0, 900).replace(/<[^>]*>?/gm, ''); %> <% } %>
+      <!--substring: shortens the string. replace: filters out HTML tags.-->
+
+      <a href="/books/<%= book._id %>">read more...</a></span
+    >
+  </div>
+  <% }); %>
+</div>
+
+<script>
+  const boxes = document.querySelectorAll(".book");
+
+  let options = {
+    rootMargin: "0px",
+    threshold: 0.8,
+  };
+
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("fade-in");
+      }
+    });
+  }, options);
+
+  boxes.forEach((box) => {
+    observer.observe(box);
+  });
+
+</script>
+
+<%- include ("./partials/footer") %>
